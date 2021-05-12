@@ -1,0 +1,52 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <title>CallNameSelectClass</title>
+    <link href="~/Vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="~/Scripts/jquery-2.1.3.min.js"></script>
+    <style>
+        .width1 {
+            width: 80%;
+            font-size: 25px;
+            background-color: #33a3dc;
+        }
+
+        .color {
+            font-size: 25px;
+            width: 80%;
+        }
+    </style>
+    <script>
+        $(function () {
+            $("#AM").click(function () {
+                window.location.href = "/Phone/Index/AM";
+
+            })
+            $("#PM").click(function () {
+                window.location.href = "/Phone/Index/PM";
+            })
+
+        });
+
+    </script>
+
+</head>
+<body>
+    <div class="container-fluid" style="text-align:center">
+        <br /><br /><br /><br />
+        <div>
+            <input id="AM" type="button" value="點名白班" class="btn btn-info btn-lg width1" /><br /><br />
+            <input id="PM" type="button" value="點名晚班" class="btn btn-primary btn-lg color" /><br /><br />
+        </div>
+    </div>
+</body>
+</html>

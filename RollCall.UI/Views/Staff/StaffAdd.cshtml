@@ -1,0 +1,241 @@
+﻿
+@{
+    ViewBag.Title = "StaffAdd";
+}
+@using TIPTOP.Model;
+@using RollCall.Model;
+
+@*<h3>
+    Form Elements
+    <small>Standard and custom elements for any form</small>
+</h3>*@
+
+<!-- START    ---------------搜索條件的表單------------------------>
+<div class="panel panel-default">
+    <div class="panel-heading">添加手機點名人員</div>
+    <div class="panel-body">
+        <form method="post" action="/Staff/StaffAdd" class="form-horizontal">
+            <fieldset>
+                <div class="form-group">
+                    <div class="row">
+                        <label class="col-sm-2 control-label">工號</label>
+                        <div class="col-sm-6">
+                            <input type="text" placeholder="按照工號搜索" class="form-control  m-b " id="ID" name="ID"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-2 control-label">部門</label>
+                        <div class="col-sm-6">
+                            <input type="text" placeholder="按照部門搜索" class="form-control  m-b " id="BU" name="BU"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-2 control-label">入廠日期</label>
+                        <div class="col-sm-6">
+                            <input type="text" placeholder="按照入廠日期搜索格式（年月日）20180101" class="form-control  m-b "id="RData" name="RData" onkeyup="checkNum(this);"/>
+                        </div>
+                    </div> 
+                </div>
+               <div class="col-sm-2 col-sm-offset-8"> <button type="submit" class="btn btn-sm btn-default">搜索Search</button></div>
+            </fieldset>
+        </form>
+    </div> 
+</div>
+<!-- END  ---------------搜索條件的表單------------------------>
+
+
+@using (Ajax.BeginForm("AddToStaff", "Staff",new AjaxOptions() { OnSuccess= "addstaff" }))
+{
+<!-- START    ---------------TIPTOP 查的員工資料Table------------------------>
+<div class="container-fluid">
+
+    <!-- START DATATABLE 2 -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                @*<div class="panel-heading">
+                    Data Tables |
+                    <small>Column Ordering</small>
+                </div>*@
+                <div class="panel-body">
+                    <table id="datatable2" class="table table-striped table-hover">
+
+                        <thead>
+
+
+
+                            <tr>
+                                <th>工號</th>
+                                <th>姓名</th>
+                                <th>部門</th>
+                                <th>入廠日期</th>
+                                @*<th><input type="checkbox"></th>*@
+                                @*<th data-check-all="data-check-all">
+                                    <div data-toggle="tooltip" data-title="Check All" class="checkbox c-checkbox">
+                                        <label>
+                                            <input type="checkbox" />
+                                            <span class="fa fa-check"></span>
+                                        </label>
+                                    </div>
+                                </th>*@
+                                <th >
+                                    <div data-toggle="tooltip" data-title="Check All" class="checkbox c-checkbox">
+                                        <label>
+                                            <input type="checkbox" id="tate" />
+                                            <span class="fa fa-check"></span>
+                                        </label>
+                                    </div>
+                                </th>
+                            </tr>
+                            
+                        </thead>
+                        <tbody>
+                            @*<tr class="">
+                                <th>工號</th>
+                                <th>姓名</th>
+                                <th>部門</th>                               
+                                <th>入廠日期</th>
+                                <th><input type="checkbox"></th>
+                            </tr>*@
+                           @if (ViewData["cpf"] != null)
+                           {
+                               foreach (cpf_file cpf in (List<cpf_file>)ViewData["cpf"])
+                               {
+                                <tr class="">
+                                    <td class="">@cpf.cpf01</td>
+                                    <td class="">@cpf.cpf02</td>
+                                    <td class="">@cpf.cpf29</td>
+                                    <td class="">@cpf.cpf70.ToString().Substring(0, @cpf.cpf70.ToString().IndexOf(" "))</td>
+                                    @*<td class=""><input value="@cpf.cpf01" type="checkbox" name="UserId"></td>*@
+                                    <td>
+                                        <div class="checkbox c-checkbox">
+                                            <label>
+                                                <input type="checkbox" name="UserId" value="@cpf.cpf01"  />
+                                                <span class="fa fa-check"></span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                   }
+                               }
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>
+                                    <input type="text" name="filter_rendering_engine" placeholder="按照工號搜索" class="form-control input-sm datatable_input_col_search" />
+                                </th>
+                                <th>
+                                    <input type="text" name="filter_browser" placeholder="按照姓名搜索" class="form-control input-sm datatable_input_col_search" />
+                                </th>
+                                <th>
+                                    <input type="text" name="filter_platform" placeholder="按照部門搜索" class="form-control input-sm datatable_input_col_search" />
+                                </th>
+                                
+                                <th>
+                                    <input type="text" name="filter_css_grade" placeholder="按照入廠日期搜索" class="form-control input-sm datatable_input_col_search" />
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END DATATABLE 2 -->
+
+
+</div>
+<!-- end    ---------------TIPTOP 查的員工資料Table------------------------>
+
+<!----START    ---------------添加 打鉤的員工到Staff 表中 表單------------------------>
+
+<div>
+    <div class="panel panel-default">
+       
+        <div class="panel-body">
+            @*<form method="post" action="/Staff/AddToStaff" class="form-horizontal">*@
+                <fieldset>
+                    <div class="form-group mb">
+                        <label class="col-sm-2 control-label">選擇職位</label>
+                        <div class="col-sm-4">
+                            <select class="chosen-select input-md form-control" id="ps" name="ps">
+                                <optgroup label="職位">
+                                    <option>線員</option>
+                                    <option>線長</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <label class="col-sm-2 control-label">選擇白晚班</label>
+                        <div class="col-sm-4">
+                            <select class="chosen-select input-md form-control" id="cls" name="cls">
+                                <optgroup label="班別">
+                                    <option>白班</option>
+                                    <option>晚班</option>                                  
+                                </optgroup>
+                            </select>
+                        </div>
+                        <label class="col-sm-2 control-label">選擇線名</label>
+                        <div class="col-sm-4">
+                            <select class="chosen-select input-md form-control" id="ln" name="ln">
+                                <optgroup label="線名">
+                                @foreach (LienNumber lnn in (List<LienNumber>)ViewData["LienNumber"])
+                                {
+                                    <option>@lnn.linename</option>
+                                }
+                                </optgroup>
+                            </select>
+                        </div> 
+                        
+                                   
+                    </div>
+                    <br/>
+                    <div class="col-sm-2 col-sm-offset-10"><button type="submit" class="btn  btn-warning btn-lg">添加人員</button></div>
+                </fieldset>
+            @*</form>*@
+        </div>
+    </div>
+</div>
+
+}
+        <!----END    ---------------添加 打鉤的員工到Staff 表中 表單------------------------>
+     
+        @section Styles {
+            @Styles.Render("~/bundles/datatablesCss")
+        }
+        @section Scripts {
+            @Scripts.Render("~/bundles/datatables")
+            @Scripts.Render("~/bundles/demoDatatable")
+            @Scripts.Render("~/bundles/ajax")
+            <script>
+
+                $(function () {
+                    $("#tate").click(
+                        function () {
+                            //alert("Test")
+                            //点击全选触发  
+                            $("[name='UserId']:checkbox").attr('checked', this.checked);
+                        });
+           
+                })
+                function checkNum(obj) {
+                    if (isNaN(obj.value)) {
+                        obj.value = "";
+                    }
+
+                }
+                //function addstaff(data) {
+                //    alert(data);
+                //    //刷新頁面
+                //    history.go(0)
+                //}
+
+               
+            </script>
+        }
+
+
+
+
+
+

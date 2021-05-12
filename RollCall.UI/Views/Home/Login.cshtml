@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+<div class="block-center mt-xl wd-xl">
+    <!-- START panel-->
+    <div class="panel panel-dark panel-flat">
+        <div class="panel-heading text-center">
+            <a href="#">
+                @*<img src="~/Content/Images/logo.png" alt="Image" class="block-center img-rounded" />*@
+                <img src="~/Content/Images/logo1.png"  alt="Image" class="block-center img-rounded"  />
+            </a>
+        </div>
+        <div class="panel-body">
+            <p class="text-center pv">登錄</p>
+            <form role="form" data-parsley-validate="" novalidate="" class="mb-lg" method="post" action="/Home/Login">
+         
+                    <div class="form-group has-feedback">
+                        @*<input id="exampleInputEmail1" type="email" placeholder="Enter email" autocomplete="off" required="required" class="form-control" />*@
+                        <input name="UserID1"type="text" name="required" required="required" placeholder="賬號" class="form-control" />
+                        <span class="fa fa-envelope form-control-feedback text-muted"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input name="Password1" type="password" placeholder="密碼" required="required" class="form-control" />
+                        <span class="fa fa-lock form-control-feedback text-muted"></span>
+                    </div>
+                    @*<div class="clearfix">
+                <div class="checkbox c-checkbox pull-left mt0">
+                    <label>
+                        <input type="checkbox" value="" name="remember" />
+                        <span class="fa fa-check"></span>Remember Me
+                    </label>
+                </div>
+                <div class="pull-right">
+                    <a href="@Url.Action("Recover", "Pages")" class="text-muted">Forgot your password?</a>
+                </div>
+            </div>*@
+                    <button id="login" type="submit" class="btn btn-block btn-primary mt-lg">Login</button>
+                </form>
+          
+        </div>
+    </div>
+    <!-- END panel-->
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/MyScript")
+}
+
+

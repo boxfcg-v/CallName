@@ -1,0 +1,76 @@
+﻿
+@{
+    Layout = null;
+}
+@using RollCall.Model
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bootstrap-Table</title>
+
+    <link href="~/Content/MyUI/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link href="~/Content/MyUI/css/font-awesome.min.css" rel="stylesheet" />
+    <script>
+        function addStaff() {
+            window.showModalDialog('AddStaff', '', "dialogWidth=800px;dialogHeight=800px");
+            //window.open("AddStaff", "", "modal=yes,width=500,height=500,resizable=no,scrollbars=no");
+        }
+        function addStaff1() {
+            //window.showModalDialog('AddStaff', '', "dialogWidth=500px;dialogHeight=500px");
+            window.open("AddStaff", "", "modal=yes,width=500,height=500,resizable=no,scrollbars=no");
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <button type="button" class="btn btn-primary" onclick="addStaff()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增</button>
+        <button type="button" class="btn btn-warning" onclick="addStaff1()"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>換班</button>
+        <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>換線</button>
+        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>刪除</button>
+    </div>
+    <div>
+        <table class="table table-bordered table-hover" style="text-align:center">
+
+            <!-- On cells (`td` or `th`) -->
+            <tr>
+                <td class="success"><input type="checkbox"></td>
+                <td class="success">工號</td>
+                <td class="success">姓名</td>
+                <td class="success">部門代碼</td>
+                <td class="success">部門</td>
+                <td class="success">線名</td>
+                <td class="success">班別</td>
+                <td class="success">入廠日期</td>
+            </tr>
+            @foreach (Staff sf in (List<Staff>)ViewData["Staff"])
+            {
+            <tr>
+                <td class=""><input type="checkbox"></td>
+                <td class="">@sf.ID</td>
+                <td class="">@sf.NAME</td>
+                <td class="">@sf.BUID</td>
+                <td class="">@sf.BU</td>
+                <td class="">@sf.LINENAME</td>
+                <td class="">@sf.CLASS</td>
+                <td class="">@sf.date1</td>
+            </tr>
+            }
+            <tr>
+                <td class="success"><input type="checkbox"></td>
+                <td class="success">工號</td>
+                <td class="success">姓名</td>
+                <td class="success">部門代碼</td>
+                <td class="success">部門</td>
+                <td class="success">線名</td>
+                <td class="success">班別</td>
+                <td class="success">入廠日期</td>
+            </tr>
+
+        </table>
+
+    </div>
+</body>
+</html>

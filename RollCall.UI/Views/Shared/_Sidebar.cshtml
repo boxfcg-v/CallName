@@ -1,0 +1,381 @@
+﻿<!-- START Sidebar (left)-->
+@using RollCall.Model
+<div class="aside-inner">
+    <nav class="sidebar" data-sidebar-anyclick-close="">
+        <!-- START sidebar nav-->
+        <ul class="nav">
+            <!-- START user info-->
+            <li class="has-user-block">
+                <div id="user-block" class="collapse">
+                    <div class="item user-block">
+                        <!-- User picture-->
+                        <div class="user-block-picture">
+                            <div class="user-block-status">
+                                <img src="~/Content/Images/user/02.jpg" alt="Avatar" width="60" height="60" class="img-thumbnail img-circle" />
+                                <div class="circle circle-success circle-lg"></div>
+                            </div>
+                        </div>
+                        <!-- Name and Job-->
+                        <div class="user-block-info">
+                            <span class="user-block-name">Hello, Mike</span>
+                            <span class="user-block-role">Designer</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <!-- END user info-->
+
+            <!-- Iterates over all sidebar items-->
+            @if(Session["BU"].ToString()=="AE")
+            { 
+            <li class="nav-heading">
+                <span>Main Navigation</span>
+            </li>
+            <li class="@Html.isActive("Home", "Userr")">
+                <a href="@Url.Action("Userr", "Home")" title="Standard">
+                    
+                    <span>添加文員</span>
+                </a>
+            </li>
+            }
+            <!--SYS-->
+            <li class="nav-heading">
+                <span>查詢出勤明細</span>
+            </li>
+            <li>
+                <a href="#detail" title="detail" data-toggle="collapse">
+                    <em class="icon-layers"></em>
+                    <span>全廠出勤明細</span>
+                </a>
+                <ul id="detail" class="nav sidebar-subnav collapse">
+                    <li class="sidebar-subnav-header">Horizontal</li>
+                    <li class="@Html.isActive("details", "QCdetail")">
+                        <a href="@Url.Action("QCdetail", "details")" title="Standard">
+                            @*<span data-localize="sidebar.nav.table.STANDARD">搜索員工</span>*@
+                            <span>全廠員工出勤明細</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-heading">
+                <span>人員維護</span>
+            </li>
+            <li>         
+            </li>
+            <li class="@Html.isActive(controller: "Tables")">
+                <a href="#tables" title="Tables" data-toggle="collapse">
+                    <em class="icon-grid"></em>
+                    <span data-localize="sidebar.nav.table.手機點名人員維護">手機點名人員維護</span>
+                </a>
+                <ul id="tables" class="nav sidebar-subnav collapse">
+                    <li class="sidebar-subnav-header">Tables</li>
+
+                    <li class="@Html.isActive("Staff", "StaffAllSearch")">
+                        <a href="@Url.Action("StaffAllSearch", "Staff")" title="Standard">
+                            @*<span data-localize="sidebar.nav.table.STANDARD">搜索員工</span>*@
+                            <span>搜索全廠員工</span>
+                        </a>
+                    </li>
+                    <li class="@Html.isActive("Staff", "StaffSearch")">
+                        <a href="@Url.Action("StaffSearch", "Staff")" title="Standard">
+                            @*<span data-localize="sidebar.nav.table.STANDARD">搜索員工</span>*@
+                            <span>搜索本部門員工</span>
+                        </a>
+                    </li>
+                    <li class="@Html.isActive("ExcelIO", "In")">
+                        <a href="@Url.Action("In", "ExcelIO")" title="Extended">
+                            @*<span data-localize="sidebar.nav.table.EXTENDED">添加員工</span>*@
+                            <span>Excel導入員工資料</span>
+                        </a>
+                    </li>
+                    <li class="@Html.isActive("Staff", "StaffAdd")">
+                        <a href="@Url.Action("StaffAdd", "Staff")" title="Extended">
+                            @*<span data-localize="sidebar.nav.table.EXTENDED">添加員工</span>*@
+                            <span>添加線長和員工</span>
+                        </a>
+                    </li>
+                    <li class="@Html.isActive("Staff", "StaffXXXBOSS")">
+                        <a href="@Url.Action("StaffXXXBOSS", "Staff")" title="Extended">
+                            @*<span data-localize="sidebar.nav.table.EXTENDED">添加員工</span>*@
+                            <span>添加特殊線長</span>
+                        </a>
+                    </li>
+                    @*<li class="@Html.isActive("Staff", "StaffXXXLISE")">
+                        <a href="@Url.Action("StaffXXXLISE", "Staff")" title="Extended">                         
+                            <span>添加特殊員工</span>
+                        </a>
+                    </li>*@
+                    <li class="@Html.isActive("Staff", "StaffLineBoss")">
+                        <a href="@Url.Action("StaffLineBoss", "Staff")" title="DataTables">
+                            @*<span data-localize="sidebar.nav.table.DATATABLE">所有線長</span>*@
+                            <span>所有線長</span>
+                        </a>
+                    </li>
+                    @foreach (LienNumber ln in (List<LienNumber>)ViewData["LienNumber"])
+                    {
+                        @*<li class="@Html.isActive("Staff", "StaffLine?LineName="+ ln.linename)">*@
+                        <li class="@Html.isActive("Staff", "StaffLine",ln.linename)">
+                            <a href="@Url.Action("StaffLine", "Staff",new {ID= ln.linename })" title="TableJQGrid">
+                                <span>@ln.linename 員工</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </li>
+            <li>
+         
+                @*<li class="@Html.isActive(controller: "Maps")">
+                <a href="#maps" title="Maps" data-toggle="collapse">
+                    <em class="icon-map"></em>
+                    <span data-localize="sidebar.nav.map.MAP">Maps</span>
+                </a>
+                <ul id="maps" class="nav sidebar-subnav collapse">
+                    <li class="sidebar-subnav-header">Maps</li>
+                    <li class="@Html.isActive("Maps", "MapsGoogle")">
+                        <a href="@Url.Action("MapsGoogle", "Maps")" title="Google Maps">
+                            <span data-localize="sidebar.nav.map.GOOGLE">Google Maps</span>
+                        </a>
+                    </li>
+                    <li class="@Html.isActive("Maps", "MapsVector")">
+                        <a href="@Url.Action("MapsVector", "Maps")" title=" vector maps">
+                            <span data-localize="sidebar.nav.map.VECTOR">Vector Maps</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-heading">
+                <span>More</span>
+            </li>
+            <li class="@Html.isActive(controller: "Pages")">
+                <a href="#pages" title="Pages" data-toggle="collapse">
+                    <em class="icon-doc"></em>
+                    <span data-localize="sidebar.nav.pages.PAGES">Pages</span>
+                </a>
+                <ul id="pages" class="nav sidebar-subnav collapse">
+                    <li class="sidebar-subnav-header">Pages</li>
+                    <li class=" ">
+                        <a href="@Url.Action("Login", "Pages")" title=" login">
+                            <span data-localize="sidebar.nav.pages.LOGIN">Login</span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="@Url.Action("Register", "Pages")" title="Sign up">
+                            <span data-localize="sidebar.nav.pages.REGISTER">Sign up</span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="@Url.Action("Recover", "Pages")" title="Recover Password">
+                            <span data-localize="sidebar.nav.pages.RECOVER">Recover Password</span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="@Url.Action("Lock", "Pages")" title="Lock">
+                            <span data-localize="sidebar.nav.pages.LOCK">Lock</span>
+                        </a>
+                    </li>
+                    <li class=" ">
+                        <a href="@Url.Action("Error_404", "Pages")" title="404">
+                            <span>404</span>
+                        </a>
+                    </li>
+                    <li class="@Html.isActive("Pages", "Template")">
+                        <a href="@Url.Action("Template", "Pages")" title="Template">
+                            <span>Template</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="@Html.isActive(controller: "Extras")">
+                <a href="#extras" title="Extras" data-toggle="collapse">
+                    <em class="icon-cup"></em>
+                    <span data-localize="sidebar.nav.extra.EXTRA">Extras</span>
+                </a>
+                <ul id="extras" class="nav sidebar-subnav collapse">
+                    <li class="sidebar-subnav-header">Extras</li>
+                    <li class="@Html.isActive("Extras", "Mailbox")">
+                        <a href="@Url.Action("Mailbox", "Extras")" title="Mailbox">
+                            <span data-localize="sidebar.nav.extra.MAILBOX">Mailbox</span>
+                        </a>
+                    </li>
+                    <li class="@Html.isActive("Extras", "Timeline")">
+                        <a href="@Url.Action("Timeline", "Extras")" title="Timeline">
+                            <span data-localize="sidebar.nav.extra.TIMELINE">Timeline</span>
+                        </a>
+                    </li>
+                    <li class="@Html.isActive("Extras", "Calendar")">
+                        <a href="@Url.Action("Calendar", "Extras")" title="Calendar">
+                            <span data-localize="sidebar.nav.extra.CALENDAR">Calendar</span>
+                        </a>
+                    </li>
+                    <li class="@Html.isActive("Extras", "Invoice")">
+                        <a href="@Url.Action("Invoice", "Extras")" title="Invoice">
+                            <span data-localize="sidebar.nav.extra.INVOICE">Invoice</span>
+                        </a>
+                    </li>
+                    <li class="@Html.isActive("Extras", "Search")">
+                        <a href="@Url.Action("Search", "Extras")" title="Search">
+                            <span data-localize="sidebar.nav.extra.SEARCH">Search</span>
+                        </a>
+                    </li>
+                    <li class="@Html.isActive("Extras", "Todo")">
+                        <a href="@Url.Action("Todo", "Extras")" title="Todo List">
+                            <span data-localize="sidebar.nav.extra.TODO">Todo List</span>
+                        </a>
+                    </li>
+                    <li class="@Html.isActive("Extras", "UserProfile")">
+                        <a href="@Url.Action("UserProfile", "Extras")" title="Profile">
+                            <span data-localize="sidebar.nav.extra.PROFILE">Profile</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="@Html.isActive(controller: "Blog")">
+                <a href="#blog" title="Blog" data-toggle="collapse">
+                    <div class="label label-success pull-right">new</div>
+                    <em class="icon-notebook"></em>
+                    <span>Blog</span>
+                </a>
+                <ul id="blog" class="nav sidebar-subnav collapse">
+                    <li class="sidebar-subnav-header">Blog</li>
+                    <li class="@Html.isActive("Blog", "Blog")">
+                        <a href="@Url.Action("Blog", "Blog")" title="List">
+                            <span>List</span>
+                        </a>
+                    </li>
+                    <li class="@Html.isActive("Blog", "BlogPost")">
+                        <a href="@Url.Action("BlogPost", "Blog")" title=" post">
+                            <span>Post</span>
+                        </a>
+                    </li>
+                    <li class="@Html.isActive("Blog", "BlogArticles")">
+                        <a href="@Url.Action("BlogArticles", "Blog")" title="Articles">
+                            <span>Articles</span>
+                        </a>
+                    </li>
+                    <li class="@Html.isActive("Blog", "BlogArticleView")">
+                        <a href="@Url.Action("BlogArticleView", "Blog")" title="Article View">
+                            <span>Article View</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="@Html.isActive(controller: "Ecommerce")">
+                <a href="#ecommerce" title="eCommerce" data-toggle="collapse">
+                    <div class="label label-success pull-right">new</div>
+                    <em class="icon-basket-loaded"></em>
+                    <span>eCommerce</span>
+                </a>
+                <ul id="ecommerce" class="nav sidebar-subnav collapse">
+                    <li class="sidebar-subnav-header">eCommerce</li>
+                    <li class="@Html.isActive("Ecommerce", "EcommerceOrders")">
+                        <a href="@Url.Action("EcommerceOrders", "Ecommerce")" title="Orders">
+                            <div class="label label-info pull-right">10</div>
+                            <span>Orders</span>
+                        </a>
+                    </li>
+                    <li class="@Html.isActive("Ecommerce", "EcommerceOrderView")">
+                        <a href="@Url.Action("EcommerceOrderView", "Ecommerce")" title="Order View">
+                            <span>Order View</span>
+                        </a>
+                    </li>
+                    <li class="@Html.isActive("Ecommerce", "EcommerceProducts")">
+                        <a href="@Url.Action("EcommerceProducts", "Ecommerce")" title="Products">
+                            <span>Products</span>
+                        </a>
+                    </li>
+                    <li class="@Html.isActive("Ecommerce", "EcommerceProductView")">
+                        <a href="@Url.Action("EcommerceProductView", "Ecommerce")" title="Product View">
+                            <span>Product View</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="@Html.isActive(controller: "Forum")">
+                <a href="#forum" title="Forum" data-toggle="collapse">
+                    <div class="label label-success pull-right">new</div>
+                    <em class="icon-speech"></em>
+                    <span>Forum</span>
+                </a>
+                <ul id="forum" class="nav sidebar-subnav collapse">
+                    <li class="sidebar-subnav-header">Forum</li>
+                    <li class="@Html.isActive("Forum", "ForumCategories")">
+                        <a href="@Url.Action("ForumCategories", "Forum")" title="Categories">
+                            <span>Categories</span>
+                        </a>
+                    </li>
+                    <li class="@Html.isActive("Forum", "ForumTopics")">
+                        <a href="@Url.Action("ForumTopics", "Forum")" title="Topics">
+                            <span>Topics</span>
+                        </a>
+                    </li>
+                    <li class="@Html.isActive("Forum", "ForumDiscussion")">
+                        <a href="@Url.Action("ForumDiscussion", "Forum")" title="Discussion">
+                            <span>Discussion</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="@Html.isActive(controller: "Multilevels")">
+                <a href="#multilevel" title="Multilevel" data-toggle="collapse">
+                    <em class="fa fa-folder-open-o"></em>
+                    <span>Multilevel</span>
+                </a>
+                <ul id="multilevel" class="nav sidebar-subnav collapse">
+                    <li class="sidebar-subnav-header">Multilevel</li>
+                    <li class="@Html.isActive("Multilevels", "Multilevel_1")">
+                        <a href="#level1" title="Level 1" data-toggle="collapse">
+                            <span>Level 1</span>
+                        </a>
+                        <ul id="level1" class="nav sidebar-subnav collapse">
+                            <li class="sidebar-subnav-header">Level 1</li>
+                            <li class="@Html.isActive("Multilevels", "Multilevel_1")">
+                                <a href="@Url.Action("Multilevel_1", "Multilevels")" title="Level1 Item">
+                                    <span>Level1 Item</span>
+                                </a>
+                            </li>
+                            <li class="@Html.isActive("Multilevels", "Multilevel_3")">
+                                <a href="#level2" title="Level 2" data-toggle="collapse">
+                                    <span>Level 2</span>
+                                </a>
+                                <ul id="level2" class="nav sidebar-subnav collapse">
+                                    <li class="sidebar-subnav-header">Level 2</li>
+                                    <li class="@Html.isActive("Multilevels", "Multilevel_3")">
+                                        <a href="#level3" title="Level 3" data-toggle="collapse">
+                                            <span>Level 3</span>
+                                        </a>
+                                        <ul id="level3" class="nav sidebar-subnav collapse">
+                                            <li class="sidebar-subnav-header">Level 3</li>
+                                            <li class="@Html.isActive("Multilevels", "Multilevel_3")">
+                                                <a href="@Url.Action("Multilevel_3", "Multilevels")" title="Level3 Item">
+                                                    <span>Level3 Item</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="@Html.isActive(controller: "Documentation")">
+                <a href="@Url.Action("Index", "Documentation")" title="Documentation">
+                    <em class="icon-graduation"></em>
+                    <span data-localize="sidebar.nav.DOCUMENTATION">Documentation</span>
+                </a>
+            </li>
+            <li class="@Html.isActive(controller: "Movies")">
+                <a href="@Url.Action("Index", "Movies")" title="Movie App">
+                    <em class="icon-trophy"></em>
+                    <span>Movie App</span>
+                </a>
+            </li>*@
+               
+            </li>
+           
+        </ul>
+        <!-- END sidebar nav-->
+    </nav>
+</div>
+<!-- END Sidebar (left)-->

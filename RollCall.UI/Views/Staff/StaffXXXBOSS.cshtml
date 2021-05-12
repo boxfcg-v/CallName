@@ -1,0 +1,306 @@
+﻿
+@{
+    ViewBag.Title = "StaffXXXBOSS";
+}
+
+@using RollCall.Model;
+<h3>
+   
+    <small>特殊線長</small>
+</h3>
+
+
+    <div class="container-fluid">
+
+        <!-- START DATATABLE  -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+
+                        <button type="button" class="btn btn-labeled btn-" data-toggle="modal" data-target="#myModal" id="add">
+                            <span class="btn-label">
+                                <i class="fa fc-agenda-view"></i>
+                            </span>添加
+                        </button>
+
+                        <button type="button" class="btn btn-labeled btn-danger" id="Del">
+                            <span class="btn-label">
+                                <i class="fa fa-fw fa-trash"></i>
+                            </span>刪除
+                        </button>                   
+                    </div>
+                    <div class="panel-body">
+                        <table id="datatable2" class="table table-grid-align-middle table-hover">
+                            @*<table id="users" class="table table-bordered table-condensed table-striped table-hover">*@
+                            <thead>
+                                <tr>
+                                    <th>工號</th>
+                                    <th>姓名</th>
+                                    <th>部門</th>
+                                    <th>線名</th>
+                                    <th>特殊情況代碼</th>
+                                    <th>特殊情況說明</th>
+
+                                    @*<th><input type="checkbox"></th>*@
+                                    <th data-check-all="data-check-all">
+                                        <div data-toggle="tooltip" data-title="Check All" class="checkbox c-checkbox">
+                                            <label>
+                                                <input type="checkbox" />
+                                                <span class="fa fa-check"></span>
+                                            </label>
+                                        </div>
+                                    </th>
+                                    
+                                    @*<th class="sort-numeric">Engine version</th>
+                                        <th class="sort-alpha">CSS grade</th>*@
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                @foreach (SpecialCase sf in (List<SpecialCase>)ViewData["SpecialCase"])
+                                {
+                                        <tr class="">
+                                        <td class="">@sf.ID</td>
+                                        <td class="">@sf.NAME</td>
+                                        <td class="">@sf.BUID</td>
+                                        <td class="">@sf.LINENAME</td>
+                                        <td class="">@sf.CODE</td>
+                                        <td calss="">@sf.note</td>
+                                      
+                                        @*<td class=""><input value="@sf.ID" type="checkbox" name="UserId"></td>*@
+                                        <td>
+                                            <div class="checkbox c-checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="UserId" value="@sf.ID" />
+                                                    <span class="fa fa-check"></span>
+                                                </label>
+                                            </div>
+                                        </td>
+
+
+                                       
+
+                                    </tr>
+                                }
+
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>
+                                        <input type="text" name="filter_rendering_engine" placeholder="Filter Rendering engine" class="form-control input-sm datatable_input_col_search" />
+                                    </th>
+                                    <th>
+                                        <input type="text" name="filter_browser" placeholder="Filter Browser" class="form-control input-sm datatable_input_col_search" />
+                                    </th>
+                                    <th>
+                                        <input type="text" name="filter_platform" placeholder="Filter Platform" class="form-control input-sm datatable_input_col_search" />
+                                    </th>
+                                    <th>
+                                        <input type="text" name="filter_engine_version" placeholder="Filter Engine version" class="form-control input-sm datatable_input_col_search" />
+                                    </th>
+                                    <th>
+                                        <input type="text" name="filter_css_grade" placeholder="Filter CSS grade" class="form-control input-sm datatable_input_col_search" />
+                                    </th>
+                                    <th>
+                                        <input type="text" name="filter_css_grade" placeholder="Filter CSS grade" class="form-control input-sm datatable_input_col_search" />
+                                    </th>
+                                    @*<th>
+                                        <input type="text" name="filter_css_grade" placeholder="Filter CSS grade" class="form-control input-sm datatable_input_col_search" />
+                                    </th>*@
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END DATATABLE  -->
+    </div>
+
+    @section BodyArea {
+        <!-- 模态框（Modal） -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">添加員工</h4>
+                    </div>
+                    <div class="modal-body">
+                        <fieldset>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-2 ">工號</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" placeholder="請輸入工號" class="form-control  m-b " id="IDD" name="IDD" onblur="aa(this);" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">姓名</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" placeholder="姓名" class="form-control  m-b " id="INAME" name="INAME" disabled="disabled" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">部門</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" placeholder="部門" class="form-control  m-b " id="IBU" name="IBU" disabled="disabled" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">職位</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" placeholder="職位" class="form-control  m-b " id="IBU" name="IBU" disabled="disabled" value="線長" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">線別</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" placeholder="線別" class="form-control  m-b " id="IRData" name="IRData" disabled="disabled" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">特殊代碼</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" placeholder="特殊代碼" class="form-control  m-b " id="Ilicode" name="Ili1" disabled="disabled" value="A" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-2 control-label">特殊情況說明</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" placeholder="特殊情況說明" class="form-control  m-b " id="Ilinote" name="Ili1" disabled="disabled" value="線長同時點這條線的白晚班" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" id="IADD" class="btn btn-primary">確認添加</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!-- Modal Del-->
+        <div id="myModalSmall" tabindex="-1" role="dialog" aria-labelledby="myModalLabelSmall" aria-hidden="true" class="modal fade">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" data-dismiss="modal" aria-label="Close" class="close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 id="myModalLabelSmall" class="modal-title">確認要刪除數據嗎？</h4>
+                    </div>
+                    <div class="modal-body">...</div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+                        <button type="button" class="btn btn-primary" id="delete1">確定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+     
+   
+    
+
+
+
+
+}
+
+@section Styles {
+    @Styles.Render("~/bundles/datatablesCss")
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/datatables")
+    @Scripts.Render("~/bundles/demoDatatable")
+    @Scripts.Render("~/bundles/ajax")
+    @Scripts.Render("~/bundles/moment")
+    @Scripts.Render("~/bundles/xEditable")
+    @Scripts.Render("~/bundles/demoXEditable")
+    <script>
+    $(function () {
+          
+        //模態框輸入工號 帶出數據
+        // $('#IDD').bind('input propertychange', function () { alert("TEST") });
+        $("#IADD").click(function () {
+            var id = $("#IDD")[0].value;
+            var name = $("#INAME").attr("value");
+            var bu = $("#IBU").attr("value");
+            var time = $("#IRData").attr("value");
+            var code = $("#Ilicode").val();
+            var note = $("#Ilinote").attr("value");
+              
+            if (id.length > 2 && name != "沒查找到此工號對應的線長") {
+                $.ajax({
+                    type: "POST",
+                    url: "/Staff/StaffXXXBOSSadd/" + id,
+                    data: { "code": code, "note": note },
+                    success: function (data) {
+                        alert(data)
+                        //刷新頁面
+                        history.go(0)
+                        //var aa = data.split(',');
+                        //$("#INAME").attr("value", aa[0])
+                        //$("#IBU").attr("value", aa[1])
+                        //$("#IRData").attr("value", aa[2])
+                    }
+                })
+            }
+            else
+            {
+                alert("請輸入工號")
+            }
+        })
+
+        //刪除數據
+        $("#delete1").click(function () {
+            var arr = "";
+            var chk_value = [];
+            $('input[name="UserId"]:checked').each(function () {//遍历每一个名字为UserId的复选框，其中选中的执行函数  
+                chk_value.push($(this).val());//将选中的值添加到数组chk_value中
+                arr = arr + $(this).val() + ",";
+
+            });
+            $.ajax({
+                type: "POST",
+                url: "/Staff/StaffXXXBOSSdelte/" + arr,
+               
+                success: function (data) {
+                    alert(data)
+                    //刷新頁面
+                    history.go(0)
+                    //var aa = data.split(',');
+                    //$("#INAME").attr("value", aa[0])
+                    //$("#IBU").attr("value", aa[1])
+                    //$("#IRData").attr("value", aa[2])
+                }
+            })
+        })
+    })
+    function aa() {
+        var id = $("#IDD")[0].value;
+        //alert(id)
+        if (id.length > 0) {
+            $.ajax({
+                type: "POST",
+                url: "/Staff/SearchStaffBOSS/" + id,
+                success: function (data) {
+                    var aa = data.split(',');
+                    $("#INAME").attr("value", aa[0])
+                     $("#IBU").attr("value", aa[1])
+                     $("#IRData").attr("value", aa[2])
+                }
+            })
+        }
+    }
+    </script>
+}
+
+
+
+

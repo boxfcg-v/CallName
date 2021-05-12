@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DataModelStoreContainer">
+    <EntitySet Name="Staff" EntityType="DataModel.Store.Staff" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LienNumber" EntityType="DataModel.Store.LienNumber" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Attendance" EntityType="DataModel.Store.Attendance" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WorkOvertime" EntityType="DataModel.Store.WorkOvertime" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PhoneUsers" EntityType="DataModel.Store.PhoneUsers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SpecialCase" EntityType="DataModel.Store.SpecialCase" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StaffXXX" EntityType="DataModel.Store.StaffXXX" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Sys_Users" EntityType="DataModel.Store.Sys_Users" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="Staff">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="NAME" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="BU" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="BUID" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="POSITION" Type="varchar" Nullable="false" MaxLength="4" />
+    <Property Name="LINENAME" Type="varchar" Nullable="true" MaxLength="10" />
+    <Property Name="CLASS" Type="varchar" Nullable="false" MaxLength="4" />
+    <Property Name="date1" Type="datetime" Nullable="true" />
+    <Property Name="date2" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="LienNumber">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="type1" Type="varchar" Nullable="true" MaxLength="20" />
+    <Property Name="linename" Type="varchar" Nullable="true" MaxLength="20" />
+    <Property Name="OrderbBy" Type="int" Nullable="true" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Attendance">
+    <Key>
+      <PropertyRef Name="keyid" />
+    </Key>
+    <Property Name="ID" Type="varchar" Nullable="true" MaxLength="20" />
+    <Property Name="NAME" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="BU" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="LINENAME" Type="varchar" Nullable="false" MaxLength="4" />
+    <Property Name="CLASS" Type="varchar" Nullable="false" MaxLength="4" />
+    <Property Name="state1" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="reason1" Type="varchar" Nullable="true" MaxLength="20" />
+    <Property Name="note1" Type="varchar" Nullable="true" MaxLength="200" />
+    <Property Name="state2" Type="varchar" Nullable="true" MaxLength="20" />
+    <Property Name="reason2" Type="varchar" Nullable="true" MaxLength="20" />
+    <Property Name="note2" Type="varchar" Nullable="true" MaxLength="200" />
+    <Property Name="date1" Type="datetime" Nullable="false" />
+    <Property Name="date2" Type="datetime" Nullable="true" />
+    <Property Name="time1" Type="float" Nullable="true" />
+    <Property Name="keyid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WorkOvertime">
+    <Key>
+      <PropertyRef Name="keyid" />
+    </Key>
+    <Property Name="ID" Type="varchar" Nullable="true" MaxLength="20" />
+    <Property Name="NAME" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="BU" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="LINENAME" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="CLASS" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="time1" Type="float" Nullable="false" />
+    <Property Name="date1" Type="datetime" Nullable="false" />
+    <Property Name="date2" Type="datetime" Nullable="false" />
+    <Property Name="keyid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PhoneUsers">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="PASSWORD1" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="power1" Type="varchar" Nullable="false" MaxLength="4" />
+  </EntityType>
+  <EntityType Name="SpecialCase">
+    <Key>
+      <PropertyRef Name="indexx" />
+    </Key>
+    <Property Name="ID" Type="char" Nullable="true" MaxLength="20" />
+    <Property Name="NAME" Type="char" Nullable="true" MaxLength="20" />
+    <Property Name="BU" Type="char" Nullable="true" MaxLength="20" />
+    <Property Name="BUID" Type="char" Nullable="true" MaxLength="20" />
+    <Property Name="LINENAME" Type="char" Nullable="true" MaxLength="20" />
+    <Property Name="CODE" Type="char" Nullable="true" MaxLength="1" />
+    <Property Name="note" Type="char" Nullable="true" MaxLength="50" />
+    <Property Name="indexx" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StaffXXX">
+    <Key>
+      <PropertyRef Name="NAME" />
+      <PropertyRef Name="BU" />
+      <PropertyRef Name="BUID" />
+      <PropertyRef Name="POSITION" />
+      <PropertyRef Name="LINENAME" />
+      <PropertyRef Name="CLASS" />
+    </Key>
+    <Property Name="ID" Type="varchar" Nullable="true" MaxLength="20" />
+    <Property Name="NAME" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="BU" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="BUID" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="POSITION" Type="varchar" Nullable="false" MaxLength="4" />
+    <Property Name="LINENAME" Type="varchar" Nullable="false" MaxLength="3" />
+    <Property Name="CLASS" Type="varchar" Nullable="false" MaxLength="4" />
+    <Property Name="date1" Type="datetime" Nullable="true" />
+    <Property Name="date2" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Sys_Users">
+    <Key>
+      <PropertyRef Name="Emp_no" />
+    </Key>
+    <Property Name="Emp_no" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Department" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Curr_time" Type="datetime" Nullable="true" />
+    <Property Name="State" Type="int" Nullable="true" />
+    <Property Name="Name" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Item1" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Item2" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Item3" Type="nvarchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DataModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DataModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Staff" EntityType="DataModel.Staff" />
+          <EntitySet Name="LienNumber" EntityType="DataModel.LienNumber" />
+          <EntitySet Name="Attendance" EntityType="DataModel.Attendance" />
+          <EntitySet Name="WorkOvertime" EntityType="DataModel.WorkOvertime" />
+          <EntitySet Name="PhoneUsers" EntityType="DataModel.PhoneUsers" />
+          <EntitySet Name="SpecialCase" EntityType="DataModel.SpecialCase" />
+          <EntitySet Name="StaffXXX" EntityType="DataModel.StaffXXX" />
+          <EntitySet Name="Sys_Users" EntityType="DataModel.Sys_Users" />
+        </EntityContainer>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BU" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BUID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="POSITION" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LINENAME" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CLASS" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="date1" Type="DateTime" Precision="0" />
+          <Property Name="date2" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="LienNumber">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="type1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="linename" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="OrderbBy" Type="Int32" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Attendance">
+          <Key>
+            <PropertyRef Name="keyid" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BU" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LINENAME" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CLASS" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="state1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="reason1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="note1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="state2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="reason2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="note2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="date1" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="date2" Type="DateTime" Precision="3" />
+          <Property Name="time1" Type="Double" />
+          <Property Name="keyid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="WorkOvertime">
+          <Key>
+            <PropertyRef Name="keyid" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BU" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LINENAME" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CLASS" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="time1" Type="Double" Nullable="false" />
+          <Property Name="date1" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="date2" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="keyid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="PhoneUsers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORD1" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="power1" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SpecialCase">
+          <Key>
+            <PropertyRef Name="indexx" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="NAME" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="BU" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="BUID" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="LINENAME" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="CODE" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="note" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+          <Property Name="indexx" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="StaffXXX">
+          <Key>
+            <PropertyRef Name="NAME" />
+            <PropertyRef Name="BU" />
+            <PropertyRef Name="BUID" />
+            <PropertyRef Name="POSITION" />
+            <PropertyRef Name="LINENAME" />
+            <PropertyRef Name="CLASS" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BU" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="BUID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="POSITION" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="LINENAME" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="CLASS" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="date1" Type="DateTime" Precision="0" />
+          <Property Name="date2" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Sys_Users">
+          <Key>
+            <PropertyRef Name="Emp_no" />
+          </Key>
+          <Property Name="Emp_no" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Curr_time" Type="DateTime" Precision="3" />
+          <Property Name="State" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Item1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Item2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Item3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DataModelStoreContainer" CdmEntityContainer="DataModelContainer">
+    <EntitySetMapping Name="Staff">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Staff)">
+        <MappingFragment StoreEntitySet="Staff">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="BU" ColumnName="BU" />
+          <ScalarProperty Name="BUID" ColumnName="BUID" />
+          <ScalarProperty Name="POSITION" ColumnName="POSITION" />
+          <ScalarProperty Name="LINENAME" ColumnName="LINENAME" />
+          <ScalarProperty Name="CLASS" ColumnName="CLASS" />
+          <ScalarProperty Name="date1" ColumnName="date1" />
+          <ScalarProperty Name="date2" ColumnName="date2" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LienNumber">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.LienNumber)">
+        <MappingFragment StoreEntitySet="LienNumber">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="type1" ColumnName="type1" />
+          <ScalarProperty Name="linename" ColumnName="linename" />
+          <ScalarProperty Name="OrderbBy" ColumnName="OrderbBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Attendance">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Attendance)">
+        <MappingFragment StoreEntitySet="Attendance">
+          <ScalarProperty Name="keyid" ColumnName="keyid" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="BU" ColumnName="BU" />
+          <ScalarProperty Name="LINENAME" ColumnName="LINENAME" />
+          <ScalarProperty Name="CLASS" ColumnName="CLASS" />
+          <ScalarProperty Name="state1" ColumnName="state1" />
+          <ScalarProperty Name="reason1" ColumnName="reason1" />
+          <ScalarProperty Name="note1" ColumnName="note1" />
+          <ScalarProperty Name="state2" ColumnName="state2" />
+          <ScalarProperty Name="reason2" ColumnName="reason2" />
+          <ScalarProperty Name="note2" ColumnName="note2" />
+          <ScalarProperty Name="date1" ColumnName="date1" />
+          <ScalarProperty Name="date2" ColumnName="date2" />
+          <ScalarProperty Name="time1" ColumnName="time1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WorkOvertime">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.WorkOvertime)">
+        <MappingFragment StoreEntitySet="WorkOvertime">
+          <ScalarProperty Name="keyid" ColumnName="keyid" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="BU" ColumnName="BU" />
+          <ScalarProperty Name="LINENAME" ColumnName="LINENAME" />
+          <ScalarProperty Name="CLASS" ColumnName="CLASS" />
+          <ScalarProperty Name="time1" ColumnName="time1" />
+          <ScalarProperty Name="date1" ColumnName="date1" />
+          <ScalarProperty Name="date2" ColumnName="date2" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PhoneUsers">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.PhoneUsers)">
+        <MappingFragment StoreEntitySet="PhoneUsers">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="PASSWORD1" ColumnName="PASSWORD1" />
+          <ScalarProperty Name="power1" ColumnName="power1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SpecialCase">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.SpecialCase)">
+        <MappingFragment StoreEntitySet="SpecialCase">
+          <ScalarProperty Name="indexx" ColumnName="indexx" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="BU" ColumnName="BU" />
+          <ScalarProperty Name="BUID" ColumnName="BUID" />
+          <ScalarProperty Name="LINENAME" ColumnName="LINENAME" />
+          <ScalarProperty Name="CODE" ColumnName="CODE" />
+          <ScalarProperty Name="note" ColumnName="note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StaffXXX">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.StaffXXX)">
+        <MappingFragment StoreEntitySet="StaffXXX">
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="BU" ColumnName="BU" />
+          <ScalarProperty Name="BUID" ColumnName="BUID" />
+          <ScalarProperty Name="POSITION" ColumnName="POSITION" />
+          <ScalarProperty Name="LINENAME" ColumnName="LINENAME" />
+          <ScalarProperty Name="CLASS" ColumnName="CLASS" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="date1" ColumnName="date1" />
+          <ScalarProperty Name="date2" ColumnName="date2" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sys_Users">
+      <EntityTypeMapping TypeName="IsTypeOf(DataModel.Sys_Users)">
+        <MappingFragment StoreEntitySet="Sys_Users">
+          <ScalarProperty Name="Emp_no" ColumnName="Emp_no" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="Curr_time" ColumnName="Curr_time" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Item1" ColumnName="Item1" />
+          <ScalarProperty Name="Item2" ColumnName="Item2" />
+          <ScalarProperty Name="Item3" ColumnName="Item3" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

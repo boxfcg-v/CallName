@@ -1,0 +1,393 @@
+﻿
+@{
+    ViewBag.Title = "StaffLine";
+}
+@using RollCall.Model;
+<h3>
+    @ViewData["linename"]
+    <small>手機點名的抓取的人員數據</small>
+</h3>
+@using (Ajax.BeginForm("DelStaff", "Staff", new AjaxOptions() { OnSuccess = "dele" }))
+{
+
+<div class="container-fluid">
+  
+    <!-- START DATATABLE  -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+
+                    <button type="button" class="btn btn-labeled btn-" data-toggle="modal" data-target="#myModal" id="add">
+                        <span class="btn-label">
+                            <i class="fa fc-agenda-view"></i>
+                        </span>添加
+                    </button>
+
+                    <button type="button" class="btn btn-labeled btn-danger" id="Del">
+                        <span class="btn-label">
+                            <i class="fa fa-fw fa-trash"></i>
+                        </span>刪除
+                    </button>
+         
+                    <button type="button" class="btn btn-labeled btn-info" id="Update">
+                        <span class="btn-label">
+                            <i class="fa fa-exclamation"></i>
+                        </span>更換白晚班
+                    </button>
+
+       
+                  
+
+                </div>
+                <div class="panel-body">
+                    <table id="datatable2" class="table table-grid-align-middle table-hover">
+                    @*<table id="users" class="table table-bordered table-condensed table-striped table-hover">*@
+                        <thead>
+          
+                            <tr>
+                                <th>工號</th>
+                                <th>姓名</th>
+                                <th>部門</th>
+                                <th>線名</th>
+                                <th>班別</th>
+                                <th>職位</th>
+                                <th>入廠日期</th>
+                                @*<th><input type="checkbox"></th>*@
+                                <th data-check-all="data-check-all">
+                                    <div data-toggle="tooltip" data-title="Check All" class="checkbox c-checkbox">
+                                        <label>
+                                            <input type="checkbox" />
+                                            <span class="fa fa-check"></span>
+                                        </label>
+                                    </div>
+                                </th>
+                                <th>
+                                    <a id="tb_user" href="#" data-type="select" data-pk="1" data-value="5" data-source="/Content/Json/xeditable-groups.json" data-title="Select group">Admin</a>
+
+                                </th>
+                                @*<th class="sort-numeric">Engine version</th>
+                    <th class="sort-alpha">CSS grade</th>*@
+                            </tr>
+                           
+                        </thead>
+                        <tbody>
+                            @foreach (Staff sf in (List<Staff>)ViewData["Staff"])
+                            {
+                                <tr class="">
+                                    <td class="">@sf.ID</td>
+                                    <td class="">@sf.NAME</td>
+                                    <td class="">@sf.BU</td>
+                                    <td class="">@sf.LINENAME</td>
+                                    <td class="">@sf.CLASS</td>
+                                    <td calss="">@sf.POSITION</td>
+                                    <td class="">@sf.date1.ToString().Substring(0, @sf.date1.ToString().IndexOf(" "))</td>
+                                    @*<td class=""><input value="@sf.ID" type="checkbox" name="UserId"></td>*@
+                                    <td>
+                                        <div class="checkbox c-checkbox">
+                                            <label>
+                                                <input type="checkbox" name="UserId" value="@sf.ID" />
+                                                <span class="fa fa-check"></span>
+                                            </label>
+                                        </div>
+                                    </td>
+
+
+                                    <td>
+                                        @*<a id="group1" href="#" data-type="select" data-pk="1" data-value="5" data-source="/Content/Json/xeditable-groups.json" data-title="Select group">Admin</a>*@
+                                        <a class="linename1" href="#" urid="@sf.ID" name="linename" id="linename">換線</a>
+                                       
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>
+                                    <input type="text" name="filter_rendering_engine" placeholder="Filter Rendering engine" class="form-control input-sm datatable_input_col_search" />
+                                </th>
+                                <th>
+                                    <input type="text" name="filter_browser" placeholder="Filter Browser" class="form-control input-sm datatable_input_col_search" />
+                                </th>
+                                <th>
+                                    <input type="text" name="filter_platform" placeholder="Filter Platform" class="form-control input-sm datatable_input_col_search" />
+                                </th>
+                                <th>
+                                    <input type="text" name="filter_engine_version" placeholder="Filter Engine version" class="form-control input-sm datatable_input_col_search" />
+                                </th>
+                                <th>
+                                    <input type="text" name="filter_css_grade" placeholder="Filter CSS grade" class="form-control input-sm datatable_input_col_search" />
+                                </th>
+                                <th>
+                                    <input type="text" name="filter_css_grade" placeholder="Filter CSS grade" class="form-control input-sm datatable_input_col_search" />
+                                </th>
+                                <th>
+                                    <input type="text" name="filter_css_grade" placeholder="Filter CSS grade" class="form-control input-sm datatable_input_col_search" />
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END DATATABLE  -->
+</div>
+
+@section BodyArea {
+    <!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">添加員工</h4>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-sm-2 ">工號</label>
+                            <div class="col-sm-6">
+                                <input type="text" placeholder="請輸入工號" class="form-control  m-b " id="IDD" name="IDD"  onblur="aa(this);" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2 control-label">姓名</label>
+                            <div class="col-sm-6">
+                                <input type="text" placeholder="姓名" class="form-control  m-b " id="INAME" name="INAME" disabled="disabled"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2 control-label">部門</label>
+                            <div class="col-sm-6">
+                                <input type="text" placeholder="部門" class="form-control  m-b " id="IBU" name="IBU" disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2 control-label">職位</label>
+                            <div class="col-sm-6">
+                                <input type="text" placeholder="職位" class="form-control  m-b " id="IBU" name="IBU" disabled="disabled" value="線員"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2 control-label">入廠日期</label>
+                            <div class="col-sm-6">
+                                <input type="text" placeholder="入廠日期" class="form-control  m-b " id="IRData" name="IRData" disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2 control-label">線別</label>
+                            <div class="col-sm-6">
+                                <input type="text" placeholder="線別" class="form-control  m-b " id="Ili" name="Ili" disabled="disabled" value="@ViewData["linename"]" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-4 control-label">請選擇白晚班</label>
+                          
+                            <select class="chosen-select input-md form-control"    id="ps" name="ps" >
+                                <optgroup label="白晚班">
+                                    <option selected="selected" disabled="disabled" style='display: none' value=''></option>  
+                                    <option>白班</option>
+                                    <option>晚班</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                  
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" id="IADD" class="btn btn-primary" >確認添加</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+      <!-- Modal Del-->
+<div id="myModalSmall" tabindex="-1" role="dialog" aria-labelledby="myModalLabelSmall" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" data-dismiss="modal" aria-label="Close" class="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 id="myModalLabelSmall" class="modal-title">確認要刪除數據嗎？</h4>
+            </div>
+            <div class="modal-body">...</div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+                <button type="button" class="btn btn-primary" id="delete">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+         <!-- Modal UpdateClass-->
+<div id="myModalSmall1" tabindex="-1" role="dialog" aria-labelledby="myModalLabelSmall1" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" data-dismiss="modal" aria-label="Close" class="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 id="myModalLabelSmall1" class="modal-title">確認更換白晚班嗎？</h4>
+            </div>
+            <div class="modal-body">...</div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-default">取消</button>
+                <button type="button" class="btn btn-primary" id="updateclass">確定</button>
+            </div>
+        </div>
+    </div>
+</div>
+    }
+
+
+
+
+}
+
+@section Styles {
+    @Styles.Render("~/bundles/datatablesCss")
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/datatables")
+    @*@Scripts.Render("~/bundles/demoDatatable")*@
+    @Scripts.Render("~/bundles/ajax")
+@Scripts.Render("~/bundles/moment")
+@Scripts.Render("~/bundles/xEditable")
+@Scripts.Render("~/bundles/demoXEditable")
+<script>
+    $(function () {
+        var ln = "";
+        $('.linename1').editable({
+            // $('#Huan').editable({
+            field: "DeptId",
+            type: "select",              //编辑框的类型。支持text|textarea|select|date|checklist等
+            url: '/Staff/Staff_TO_linename',
+            pk: 1,
+            // source: [{ value: 1, text: "开发部" }, { value: 2, text: "销售部" }, { value: 3, text: "行政部" }],
+            source: function () {
+                var result = [];
+                $.ajax({
+                    url: '/Staff/GetDepartments',
+                    async: false,
+                    type: "get",
+                    data: {},
+                    success: function (data, status) {
+                        $.each(data, function (key, value) {
+                            result.push({ value: value.ID, text: value.Name });
+                        });
+                    }
+                });
+                return result;
+            },
+
+            title: "选择線名",           //编辑框的标题
+            disabled: false,           //是否禁用编辑
+            emptytext: "空文本",       //空值的默认文本
+            mode: "popup",            //编辑框的模式：支持popup和inline两种模式，默认是popup
+            validate: function (value) { //字段验证
+                ln=value
+                if (!$.trim(value)) {
+                    return '不能为空';
+                }
+            },
+            success: function (value) {
+                var id = $(this).attr("urid");
+                // alert(ln);
+                $.ajax({
+                    url: "/Staff/Staff_TO_linename/" + id + "," + ln, success: function () {
+
+                    }
+                });
+
+            }
+        });
+        //模態框輸入工號 帶出數據
+        // $('#IDD').bind('input propertychange', function () { alert("TEST") });
+        $("#IADD").click(function () {
+            var id = $("#IDD")[0].value;
+            var name = $("#INAME").attr("value");
+            var bu = $("#IBU").attr("value");
+            var time = $("#IRData").attr("value");
+            var class1 = $("#ps").val();
+            var li = $("#Ili").attr("value");
+            Ili
+            // alert(class1)
+            StaffADD = id + "," + name + "," + bu + "," + time + "," + class1
+            if (id.length > 2 && name != "沒查找到此工號對應的員工" && class1 != null) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Staff/StaffADDD/" + id,
+                    data:{"class1":class1,"li":li},
+                    success: function (data) {
+                        alert(data)
+                        //刷新頁面
+                        history.go(0)
+                        //var aa = data.split(',');
+                        //$("#INAME").attr("value", aa[0])
+                        //$("#IBU").attr("value", aa[1])
+                        //$("#IRData").attr("value", aa[2])
+                    }
+                })
+            }
+            else
+            {
+                alert("請選擇白晚班")
+            }
+
+        })
+
+
+        //datatable
+        var dtInstance2 = $('#datatable2').dataTable({
+            'paging': true,  // Table pagination
+            'ordering': true,  // Column ordering 
+            'info': true,  // Bottom left status text
+            // Text translation options
+            // Note the required keywords between underscores (e.g _MENU_)
+            oLanguage: {
+                sSearch: 'Search all columns:',
+                sLengthMenu: '_MENU_ records per page',
+                info: 'Showing page _PAGE_ of _PAGES_',
+                zeroRecords: 'Nothing found - sorry',
+                infoEmpty: 'No records available',
+                infoFiltered: '(filtered from _MAX_ total records)'
+            },
+            iDisplayLength: 100
+        });
+        var inputSearchClass = 'datatable_input_col_search';
+        var columnInputs = $('tfoot .' + inputSearchClass);
+
+        // On input keyup trigger filtering
+        columnInputs
+          .keyup(function () {
+              dtInstance2.fnFilter(this.value, columnInputs.index(this));
+          });
+
+    })
+    function aa() {
+        var id = $("#IDD")[0].value;
+        //alert(id)
+        if (id.length > 0) {
+            $.ajax({
+                type: "POST",
+                url: "/Staff/SearchTIPTOPStaff/" + id,
+                success: function (data) {
+                    var aa = data.split(',');
+                    $("#INAME").attr("value", aa[0])
+                     $("#IBU").attr("value", aa[1])
+                     $("#IRData").attr("value", aa[2])
+                }
+            })
+        }
+    }
+  
+    </script>
+}

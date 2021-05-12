@@ -1,0 +1,292 @@
+﻿
+@{
+    Layout = null;
+}
+@using RollCall.Model
+<!DOCTYPE html>
+<!--[if IE 9]><html class="no-js lt-ie10" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>网站标题</title>
+    <meta name="description" content="网站描述">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    @*<link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/main.css">*@
+    <link href="~/Content/MyUI/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/MyUI/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/MyUI/css/main.css" rel="stylesheet" />
+    <script src="~/Content/MyUI/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="~/Content/MyUI/js/vendor/bootstrap.min.js"></script>
+  
+    <script>
+        //function changeFrameHeight() {
+        //    var ifm = document.getElementById("mainiframe");
+        //    ifm.height = document.documentElement.clientHeight - 56;
+        //    var myfm = document.getElementById("myiframe");
+        //    myfm.height = document.documentElement.clientHeight - 56;
+        //}
+        //function changeHeight() {
+
+        //    $(this).height = document.documentElement.clientHeight - 56;
+        //}
+        //window.onresize = function () { changeFrameHeight(); }myiframe
+        // $(function () { changeFrameHeight(); });
+
+        $(function () {
+            $("#ul_a_tab a").click(function () {
+
+
+                var id = $(this).text().toString();//獲取 問吧
+                var oldli = document.getElementById(id);
+                if (oldli == null) {
+                    var ul = document.getElementById("tab_nav"); //定位ul
+                    var li = document.createElement("li");//创建li
+                    var a = document.createElement("a"); //创建li中的链接a
+                    a.href = "#StaffDefile";
+                    //a.href = "#messages";
+                    $(a).attr("data-toggle", "tab");
+                    a.innerHTML = id;
+                    li.id = id;
+                    li.appendChild(a);
+                    ul.appendChild(li);
+                    var liname = "S05";
+                    $.post("/Home/Staff", { "linename": liname }, function (data) { })
+                    var url = $(this).attr("url");
+                    //showContent(url);
+                    $(a).tab("show");
+                }
+                else {
+                    var a = oldli.getElementsByTagName("a");
+
+                    $(a).tab("show");
+                }
+            })
+        })  
+    </script>
+
+
+
+
+
+</head>
+<body>
+    <div id="page-wrapper" class="page-loading">
+        <div class="preloader">
+            <div class="inner">
+                <div class="preloader-spinner themed-background hidden-lt-ie10"></div>
+                <h3 class="text-primary visible-lt-ie10"><strong>Loading..</strong></h3>
+            </div>
+        </div>
+
+        <div id="page-container" class="header-fixed-top sidebar-visible-lg-full">
+
+            <div id="sidebar">
+                <div id="sidebar-brand" class="themed-background">
+                    <a href="#" class="sidebar-title">
+                        <i class="icon-cog"></i>
+                        <span class="sidebar-nav-mini-hide">手機點名系統<small>(简称)</small></span>
+                    </a>
+                </div>
+                <div id="sidebar-scroll">
+                    <div class="sidebar-content">
+                        <ul class="sidebar-nav">
+                            <li>
+                                <a href="index.html"><i class="icon-home sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">首页</span></a>
+                            </li>
+                            <li>
+                                <a href="#" class="sidebar-nav-menu"><i class="icon-chevron-right sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="icon-gift sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">人員管理</span></a>
+                                <ul>
+                                    <li>
+                                        <a href="#">添加用戶</a>
+                                    </li>
+                                    <li>
+                                        <a href="#l">空</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">空</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">空</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">空</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="sidebar-nav-menu"><i class="icon-chevron-right sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="icon-group sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">人員維護</span></a>
+                                <ul id="ul_a_tab">
+                                    <li>
+                                        <a href="#">線長人員</a>
+                                    </li>
+                                    @foreach (LienNumber ln in (List<LienNumber>)ViewData["LienNumber"])
+                                    {
+                                        <a href="#" url="/Home/Staff">@ln.linename 人員</a>
+
+                                    }
+                                    @*<li>
+                                        <a href="#" url="/Home/Staff">S01人員</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">S02人員</a>
+                                    </li>*@
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="sidebar-nav-menu"><i class="icon-chevron-right sidebar-nav-indicator sidebar-nav-mini-hide"></i><i class="icon-gift sidebar-nav-icon"></i><span class="sidebar-nav-mini-hide">多级菜单</span></a>
+                                <ul>
+                                    <li>
+                                        <a href="#" class="sidebar-nav-submenu"><i class="icon-chevron-right sidebar-nav-indicator"></i>一级菜单</a>
+                                        <ul>
+                                            <li>
+                                                <a href="#">二级菜单</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">二级菜单</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">二级菜单</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <!-- END Sidebar Navigation -->
+                    </div>
+                </div>
+            </div>
+
+            <div id="main-container">
+                <header class="navbar navbar-inverse navbar-fixed-top">
+                    <ul class="nav navbar-nav-custom">
+                        <li>
+                            <a href="javascript:void(0)" onclick="Tool.sidebar('toggle-sidebar');this.blur();">
+                                <i class="icon-reorder animation-fadeInRight" id="sidebar-toggle-mini"></i>
+                                <i class="icon-reorder animation-fadeInRight" id="sidebar-toggle-full"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav-custom pull-right">
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+
+                                <img src="~/Content/MyUI/img/index.jpg" />
+                                <span>登录用户信息</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                    <a href="#">
+                                        <i class="icon-pencil fa-fw pull-right"></i>
+                                        个人资料
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="icon-off fa-fw pull-right"></i>
+                                        退出
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </header>
+
+                <div id="page-content">
+
+                    <!-- 导航区 -->
+
+                    <ul class="nav nav-pills" role="tablist" id="tab_nav">
+
+                        <li role="presentation" class="active"><a href="#messages" role="tab" data-toggle="tab">Home</a></li>
+                        @*@foreach (LienNumber ln in (List< LienNumber >)ViewData["LienNumber"])
+                        {
+                            <li role="@ln.linename"><a href="#profile" role="tab" data-toggle="tab">@ln.linename </a></li>
+                        }*@
+                        <li role="presentation"><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
+                        <li role="presentation"><a href="#urlstaff" role="tab" data-toggle="tab">Settings</a></li>
+
+
+                    </ul>
+
+                    <!-- 面板区 -->
+
+
+                    <div class="tab-content" id="tab_content">
+                        <div role="tabpanel" class="tab-pane active" id="home">...home</div>
+
+                        @*<div role="tabpanel" class="tab-pane" id="profile"><iframe src="Home/Staff" id="iframepage" onload="changeFrameHeight()" frameborder="0"></iframe> </div>*@
+
+                        <div role="tabpanel" class="tab-pane" id="messages"><iframe id="mainiframe" style="width:100%" height="0" src="Home/Staff" frameborder="0" scrolling="auto"></iframe></div>
+                        <div role="tabpanel" class="tab-pane" id="StaffDefile">
+                        @*<iframe id="myiframe" style="width:100%" height="0" src="/Home/Staff" frameborder="0" scrolling="auto" onload="changeHeight()"></iframe>*@
+                            <div>
+                                <button type="button" class="btn btn-primary" onclick="addStaff()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增</button>
+                                <button type="button" class="btn btn-warning" onclick="addStaff1()"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>換班</button>
+                                <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>換線</button>
+                                <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span>刪除</button>
+                            </div>
+                            <div>
+                                <table class="table table-bordered table-hover" style="text-align:center" id="stafftable">
+
+                                    <!-- On cells (`td` or `th`) -->
+                                    <tr>
+                                        <td class="success"><input type="checkbox"></td>
+                                        <td class="success">工號</td>
+                                        <td class="success">姓名</td>
+                                        <td class="success">部門代碼</td>
+                                        <td class="success">部門</td>
+                                        <td class="success">線名</td>
+                                        <td class="success">班別</td>
+                                        <td class="success">入廠日期</td>
+                                    </tr>
+                                    @foreach (Staff sf in (List<Staff>)ViewData["Staff"])
+                                    {
+                                        <tr>
+                                            <td class="active"><input type="checkbox"></td>
+                                            <td class="active">@sf.ID</td>
+                                            <td class="active">@sf.NAME</td>
+                                            <td class="active">@sf.BUID</td>
+                                            <td class="active">@sf.BU</td>
+                                            <td class="active">@sf.LINENAME</td>
+                                            <td class="active">@sf.CLASS</td>
+                                            <td class="active">@sf.date1</td>
+                                        </tr>
+                                    }
+                                    <tr>
+                                        <td class="success"><input type="checkbox"></td>
+                                        <td class="success">工號</td>
+                                        <td class="success">姓名</td>
+                                        <td class="success">部門代碼</td>
+                                        <td class="success">部門</td>
+                                        <td class="success">線名</td>
+                                        <td class="success">班別</td>
+                                        <td class="success">入廠日期</td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<script src="js/vendor/jquery-2.2.4.min.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/tool.js"></script>*@
+
+    <script src="~/Content/MyUI/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="~/Content/MyUI/js/vendor/bootstrap.min.js"></script>
+    <script src="~/Content/MyUI/js/plugins.js"></script>
+    <script src="~/Content/MyUI/js/tool.js"></script>
+
+</body>
+</html>

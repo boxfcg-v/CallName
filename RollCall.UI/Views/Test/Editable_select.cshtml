@@ -1,0 +1,42 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Editable_select</title>
+
+    <link href="~/Vendor/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" />
+    <script src="~/Vendor/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    
+    <script>
+
+        $(function () {
+            //$('#department').click(function () { alert("aaa") })
+            $('#department').editable({
+                type: "select",              //编辑框的类型。支持text|textarea|select|date|checklist等
+                source: [{ value: 1, text: "开发部" }, { value: 2, text: "销售部" }, { value: 3, text: "行政部" }],
+                title: "选择部门",           //编辑框的标题
+                disabled: false,           //是否禁用编辑
+                emptytext: "空文本",       //空值的默认文本
+                mode: "popup",            //编辑框的模式：支持popup和inline两种模式，默认是popup
+                validate: function (value) { //字段验证
+                    if (!$.trim(value)) {
+                        return '不能为空';
+                    }
+                }
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <div> 
+        <a href="#" id="department">选择部门</a>
+    </div>
+</body>
+</html>
