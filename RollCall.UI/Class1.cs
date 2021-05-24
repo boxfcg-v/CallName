@@ -7,5 +7,8 @@ namespace RollCall.UI
 {
     public class Class1
     {
+        public void conn()
+        {
+        }
     }
 }
